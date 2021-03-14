@@ -18,5 +18,6 @@ jobs:
       - name: Do linting
         run: |
           terraform version
+          terraform providers
           terraform init
           terraform validate
