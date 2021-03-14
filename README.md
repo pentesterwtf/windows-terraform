@@ -36,6 +36,7 @@
   * Terraform - https://www.terraform.io/downloads.html
   * Terraform-provider-libvirt - https://github.com/dmacvicar/terraform-provider-libvirt
   * libirt - See your distro documentation
+  * Ansible - If allowing provisioning to occur
 * Alternatively, if using Fedora 33+:
    * These are all packaged at https://github.com/pentesterwtf/ansible-desktop/tree/master/roles/hashicorp
 

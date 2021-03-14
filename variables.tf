@@ -11,6 +11,12 @@ variable "name" {
   default     = "windows"
 }
 
+variable "memory" {
+  description = "Amount of ram in megabytes."
+  type        = string
+  default     = "8192"
+}
+
 variable "qcow_image_url" {
   description = "The URL for a qcow2 image for Windows 10/Server 2019."
   # This defaults to Server 2019 without sysprep

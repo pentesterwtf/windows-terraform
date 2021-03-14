@@ -9,8 +9,8 @@ resource "libvirt_volume" "windows" {
 
 resource "libvirt_domain" "domain-windows" {
   name   = var.name
-  memory = 2048
-  vcpu   = 1
+  memory = var.memory
+  vcpu   = 2
   cpu = {
     mode = "host-passthrough"
   }
@@ -51,6 +51,9 @@ resource "libvirt_domain" "domain-windows" {
   provisioner "file" {
     source      = "sync/"
     destination = "C:/sync/"
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook -i \"${self.network_interface.0.addresses.0},\" ansible-playbook.yml --extra-vars \"hostname=${var.name}\""
   }
 
 }

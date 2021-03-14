@@ -1,0 +1,27 @@
+---
+
+- name: workstation
+  hosts: all
+  gather_facts: False
+
+  vars:
+    ansible_user: vagrant
+    ansible_password: vagrant
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+
+
+  tasks:
+    - name: Wait for machine to boot
+      wait_for_connection:
+        timeout: 900
+    # We're on KVM - we want this box to know the local (hardware) clock is UTC
+    - name: Set clock to use UTC
+      win_command: bcdedit /set useplatformclock true
+    - name: Change the hostname to "{{ hostname }}"
+      win_hostname:
+        name: "{{ hostname }}"
+      register: res
+    - name: Reboot
+      win_reboot:
+      when: res.reboot_required
