@@ -23,6 +23,11 @@ variable "qcow_image_url" {
   default = "https://pentesterwtf.s3-ap-southeast-2.amazonaws.com/qemu/windows-server-2019-17763-nosysprep.qcow2"
 }
 
+#------------------------------------------------------------------------------
+# Internal Variables
+# You probably don't want to modify the below
+#------------------------------------------------------------------------------
+
 ## We default to system, but can also be qemu:///session if required
 ## Recommend leaving this as session
 provider "libvirt" {

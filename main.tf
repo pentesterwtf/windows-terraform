@@ -1,3 +1,5 @@
+# main.tf
+
 resource "libvirt_volume" "windows" {
   name   = "qemu-${var.name}.qcow2"
   pool   = "default"
