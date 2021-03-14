@@ -17,5 +17,6 @@ jobs:
           sudo tar xvf /tmp/f.tar.gz -C ~/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.6.3/linux_amd64/
       - name: Do linting
         run: |
+          terraform version
           terraform init
           terraform validate
