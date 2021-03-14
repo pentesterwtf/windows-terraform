@@ -6,19 +6,24 @@
 * Gives us a simple Win10, or Server 2019 full of goodies
 * Copy stuff from the `/sync` folder to `C:/sync`
 * Always up to date thanks to another workflow
+* Need something bigger/more featured/a Windows lab? See `https://github.com/pentesterwtf/windows-lab`
 
 ## Usage
 
-```
-terraform init
-terraform apply -auto-approve
-```
+* Edit `variables.tf` and pick the OS you want
+  * Defaults to Server 2019, Can be swapped to Win10 (See `Image selection`)
+* Initialise terraform
+  * `terraform init`
+* Apply
+  * `terraform apply -auto-approve`
+* Teardown is similar:
+  * `terraform destroy -auto-approve`
 
-Teardown is similar:
+### Security considerations
 
-```
-terraform destroy -auto-approve
-```
+* Not a hardened image
+  * `vagrant/vagrant` everywhere, change credentials, etc
+  * will have SSH enabled
 
 ## Requirements
 
@@ -29,8 +34,18 @@ terraform destroy -auto-approve
 * Alternatively, if using Fedora 33+:
    * These are all packaged at https://github.com/pentesterwtf/ansible-desktop/tree/master/roles/hashicorp
 
+## Image selection  
+
+* See `https://pentesterwtf.s3-ap-southeast-2.amazonaws.com/` for `qemu/windows-*` images
+* `nosysprep` images do *not* have sysprep, and will have the same machine ID, but are faster to spin up
+* all other images will run sysprep on first boot, which is ideal for a domain environment, but will take longer to start initially
+* You're probably going to be OK with `nosysprep` images
+
 ## Implementation
 
 * Lives off the default network provided by Libvirt
   * `default` / `192.168.122.0/24` / NAT
   * This is to keep our flow simple
+* This does *not* use a base image
+  * This will pull a new image *every time* you spin this up
+  * See https://github.com/dmacvicar/terraform-provider-libvirt/blob/master/website/docs/r/volume.html.markdown
