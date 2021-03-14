@@ -1,12 +1,12 @@
-resource "libvirt_volume" "win10" {
-  name   = "qemu-windows-10.qcow2"
+resource "libvirt_volume" "windows" {
+  name   = "qemu-${var.name}.qcow2"
   pool   = "default"
-  source = var.iso_win10
+  source = var.qcow_image_url
   format = "qcow2"
 }
 
-resource "libvirt_domain" "domain-windows10" {
-  name   = "win10"
+resource "libvirt_domain" "domain-windows" {
+  name   = var.name
   memory = 2048
   vcpu   = 1
   cpu = {
@@ -15,12 +15,11 @@ resource "libvirt_domain" "domain-windows10" {
 
   network_interface {
     wait_for_lease = true
-    hostname       = "win10"
     network_name   = "default"
   }
 
   disk {
-    volume_id = libvirt_volume.win10.id
+    volume_id = libvirt_volume.windows.id
   }
 
   graphics {

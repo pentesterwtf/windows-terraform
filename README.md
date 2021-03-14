@@ -4,6 +4,7 @@
 
 * Vagrant is a terrible solution for Windows
 * Gives us a simple Win10, or Server 2019 full of goodies
+  * Defaults to Server 2019
 * Copy stuff from the `/sync` folder to `C:/sync`
 * Always up to date thanks to another workflow
 * Need something bigger/more featured/a Windows lab? See `https://github.com/pentesterwtf/windows-lab`
@@ -18,6 +19,10 @@
   * `terraform apply -auto-approve`
 * Teardown is similar:
   * `terraform destroy -auto-approve`
+
+* Already have one running? Supply a `name` and you can have multiple machines:
+  * `terraform apply -auto-approve -var="name=windows_reversing"`
+  * Note: take care of terraform state 
 
 ### Security considerations
 
