@@ -1,0 +1,21 @@
+---
+name: Validation
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install qemu-kvm libvirt-daemon-system -y
+          sudo mkdir -p ~/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.6.3/linux_amd64/
+          wget https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.3/terraform-provider-libvirt-0.6.3+git.1604843676.67f4f2aa.Ubuntu_20.04.amd64.tar.gz -O /tmp/f.tar.gz
+          sudo tar xvf /tmp/f.tar.gz -C ~/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.6.3/linux_amd64/
+      - name: Do linting
+        run: |
+          terraform init
+          terraform validate
