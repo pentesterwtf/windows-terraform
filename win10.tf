@@ -5,7 +5,6 @@ resource "libvirt_volume" "win10" {
 }
 
 resource "libvirt_domain" "domain-windows10" {
-	depends_on = [libvirt_network.vm_network]
 	name       = "win10"
 	memory     = 2048
 	vcpu       = 1
@@ -16,7 +15,7 @@ resource "libvirt_domain" "domain-windows10" {
 	network_interface {
 		wait_for_lease = true
 		hostname       = "win10"
-		network_name   = "vm_network"
+		network_name   = "default"
 	}
 
 	disk{
